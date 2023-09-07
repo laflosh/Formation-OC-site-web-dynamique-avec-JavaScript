@@ -39,7 +39,7 @@ for (let i = 0; i < pieces.length; i++) {
     pieceElement.appendChild(disponibiliteElement);
 
 }
-
+//intérection avec les boutons de filtres
 const boutonTrier = document.querySelector(".btn-trier");
 boutonTrier.addEventListener("click", () => {
     const piecesOrdonnees = Array.from(pieces);
@@ -75,3 +75,39 @@ boutonFiltrerDescription.addEventListener("click", () =>{
     });
     console.log(piecesFiltrerDescription);
 });
+//liste pieces abordable
+const nomAbordable = pieces.map(pieces => pieces.nom);
+
+for (let j = pieces.length - 1; j >= 0; j--){
+    if (pieces[j].prix > 35){
+        nomAbordable.splice(j,1)
+    }
+}
+
+const abordableElement = document.createElement("ul");
+for (let k = 0;k < nomAbordable.length;k++){
+    const nomAbordableElement = document.createElement("li");
+    nomAbordableElement.innerText = nomAbordable[k];
+    abordableElement.appendChild(nomAbordableElement);
+}
+document.querySelector(".abordable").appendChild(abordableElement);
+//liste pieces disponible
+const nomsDisponibles = pieces.map(piece => piece.nom);
+const prixDisponibles = pieces.map(piece => piece.prix);
+
+for(let i = pieces.length -1 ; i >= 0; i--){
+    if(pieces[i].disponibilite === false){
+        nomsDisponibles.splice(i,1);
+        prixDisponibles.splice(i,1);
+    }
+}
+
+const disponiblesElement = document.createElement('ul');
+
+for(let i=0 ; i < nomsDisponibles.length ; i++){
+    const nomElement = document.createElement('li');
+    nomElement.innerText = `${nomsDisponibles[i]} - ${prixDisponibles[i]} €`;
+    disponiblesElement.appendChild(nomElement);
+}
+
+document.querySelector('.disponibles').appendChild(disponiblesElement);

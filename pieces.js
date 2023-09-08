@@ -1,3 +1,5 @@
+import { ajoutListenersAvis } from "/avis.js";
+
 // Récupération des pièces depuis le fichier JSON
 const reponse = await fetch("pieces-autos.json");
 const pieces = await reponse.json();
@@ -29,6 +31,10 @@ function genererPieces(pieces){
         const disponibiliteElement = document.createElement("p");
         disponibiliteElement.innerText = pieces[i].disponibilite ? "En stock" : "rupture de stock";
 
+        const avisBouton = document.createElement("button");
+        avisBouton.dataset.id = article.id;
+        avisBouton.textContent = "Afficher les avis";
+
         sectionFiches.appendChild(pieceElement);
 
         pieceElement.appendChild(imageElement);
@@ -37,8 +43,10 @@ function genererPieces(pieces){
         pieceElement.appendChild(categorieElement);
         pieceElement.appendChild(descriptifElement);
         pieceElement.appendChild(disponibiliteElement);
+        pieceElement.appendChild(avisBouton);
 
     }
+    ajoutListenersAvis();
 }
 //Première affichage des fiches et listes
 genererPieces(pieces);
@@ -48,6 +56,7 @@ listeDisponible(pieces);
 //intérection avec les boutons de filtres
 const boutonReset = document.querySelector(".reset");
 boutonReset.addEventListener("click", () =>{;
+    document.querySelector(".fiches").innerHTML = "";
     genererPieces(pieces);
     listeAbordable(pieces);
     listeDisponible(pieces);
@@ -103,7 +112,7 @@ rangePrix.addEventListener("input", () => {
 });
 
 //liste pieces abordable
-function listeAbordable(pieces){
+function listeAbordable(){
     const nomAbordable = pieces.map(pieces => pieces.nom);
 
     for (let j = pieces.length - 1; j >= 0; j--){
@@ -122,7 +131,7 @@ function listeAbordable(pieces){
 }
 
 //liste pieces disponible
-function listeDisponible(pieces){
+function listeDisponible(){
     const nomsDisponibles = pieces.map(piece => piece.nom);
     const prixDisponibles = pieces.map(piece => piece.prix);
 

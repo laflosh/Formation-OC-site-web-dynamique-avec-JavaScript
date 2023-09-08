@@ -1,7 +1,7 @@
-import { ajoutListenersAvis } from "/avis.js";
+import { ajoutListenersAvis, ajoutListenerEnvoyerAvis } from "/avis.js";
 
 // Récupération des pièces depuis le fichier JSON
-const reponse = await fetch("pieces-autos.json");
+const reponse = await fetch("http://localhost:8081/pieces");
 const pieces = await reponse.json();
 //fiche article
 
@@ -52,6 +52,7 @@ function genererPieces(pieces){
 genererPieces(pieces);
 listeAbordable(pieces);
 listeDisponible(pieces);
+ajoutListenerEnvoyerAvis();
 
 //intérection avec les boutons de filtres
 const boutonReset = document.querySelector(".reset");

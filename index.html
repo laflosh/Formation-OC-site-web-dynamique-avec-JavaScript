@@ -28,6 +28,20 @@
 				<br>
 				<label>Sélection de produits en fonction du prix.<br>(entre 0 à 60e)</label>
 				<input type="range" max="60" min="0" step="5" class="range-prix"/>
+				<br>
+
+				<h3>Ajouter un avis</h3>
+				<form class="formulaire-avis">
+					Identifiant de la pièce :<br>
+					<input type="number" name="piece-id" min="0" max="5"><br>
+					Nom d'utilisateur :<br>
+					<input type="text" name="utilisateur"><br>
+					Avis :<br>
+					<input type="text" name="commentaire"><br>
+					Note:<br>
+					<input type="number" name="nb-etoile" min="0" max="5"><br>
+					<button>Envoyer</button>
+				</form>
 			</section>
 
 			<!-- Fiches produits -->
